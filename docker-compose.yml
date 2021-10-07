@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    restart: always
+    build: .
+    container_name: web
+    volumes: 
+      - ./:/var/www/
+    networks:
+      - app-network
+
+  nginx:
+    build: ./.docker/nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes: 
+      - ./:/var/www
+    networks:
+      - app-network
+      
+networks:
+  app-network:
+    driver: bridge
+
